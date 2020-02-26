@@ -136,17 +136,18 @@ void BST::inorder_re(TreeNode *node)
 std::vector<int> BST::inorder_non()
 {
   std::vector<int> result;
-  std::stack<TreeNode *> node_stack;
+  std::stack<TreeNode *> node_stack;//use a stack to mimic recursion
   TreeNode *node = root_;
 
   while(!node_stack.empty()||node!=nullptr)
   {
-    while(node!=nullptr)
+    while(node!=nullptr)//if node is a nullptr, either there is no right subtree 
+                        //or there is no way to go down the left subtree which means it already hits the bottom. 
     {
       node_stack.push(node);
       node = node->left;
     }
-      node = node_stack.top();
+      node = node_stack.top();//access to the top of the stack
 
       node_stack.pop();
       result.push_back(node->val);
@@ -155,7 +156,7 @@ std::vector<int> BST::inorder_non()
       // node = node_stack.top();
       // result.push_back(node->val);
 
-      node = node->right;//check if there is a right subtree
+      node = node->right;//check if there is any right subtree
     }
     return result;
 }
